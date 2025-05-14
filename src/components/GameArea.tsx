@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gameInfos } from '../assets/games'
 import type { DanceCatGameType } from '../Types'
 import '../styles/GamerArea.style.css'
@@ -23,16 +23,26 @@ const GameArea = ({
 }) => {
   const [toggleGameMenu, setToggleGameMenu] = useState(false)
   const [assetsLoaded, setAssetsLoaded] = useState({ image: false, gif: false })
-  const imageUrl = currentGameInfo?.getImageUrl()
-  const gifUrl = currentGameInfo?.getGifUrl()
+  const imageUrl = currentGameInfo?.getImageUrl() ?? '/images/vibeCat1.png'
+  const gifUrl = currentGameInfo?.getGifUrl() ?? '/gifs/dancingCat.gif'
   const gameName = currentGameInfo?.getGameName()
 
-  // useEffect(() => {
-  //   setAssetsLoaded({ image: false, gif: false })
-  // }, [currentGameInfo])
+  useEffect(() => {
+    setAssetsLoaded({ image: false, gif: false })
+
+    const img = new Image()
+    img.src = imageUrl
+    img.onload = () => setAssetsLoaded((s) => ({ ...s, image: true }))
+
+    const anim = new Image()
+    anim.src = gifUrl
+    anim.onload = () => setAssetsLoaded((s) => ({ ...s, gif: true }))
+  }, [imageUrl, gifUrl])
 
   // const [gameStart, setGameStart] = useState(false)
   const allGamesNames = gameInfos.map((game) => game.name)
+  const waiting =
+    (!gameStart && !assetsLoaded.image) || (gameStart && !assetsLoaded.gif)
 
   const baseColor = currentGameInfo?.getBackgroundColor() ?? '#84cfdf'
   // darken by 60 (out of 255)—tweak this to taste
@@ -106,7 +116,7 @@ const GameArea = ({
         }}
         onPointerUp={onPointerUp}
       >
-        {!assetsLoaded.image && !assetsLoaded.gif && (
+        {waiting && (
           <div className="loader">
             <div className="spinner" />
           </div>
