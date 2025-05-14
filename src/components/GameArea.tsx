@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { gameInfos } from '../assets/games'
 import type { DanceCatGameType } from '../Types'
 import '../styles/GamerArea.style.css'
@@ -22,10 +22,14 @@ const GameArea = ({
   bestScore: number
 }) => {
   const [toggleGameMenu, setToggleGameMenu] = useState(false)
+  const [assetsLoaded, setAssetsLoaded] = useState({ image: false, gif: false })
   const imageUrl = currentGameInfo?.getImageUrl()
   const gifUrl = currentGameInfo?.getGifUrl()
   const gameName = currentGameInfo?.getGameName()
-  console.log(currentGameInfo)
+
+  useEffect(() => {
+    setAssetsLoaded({ image: false, gif: false })
+  }, [currentGameInfo])
 
   // const [gameStart, setGameStart] = useState(false)
   const allGamesNames = gameInfos.map((game) => game.name)
@@ -102,14 +106,27 @@ const GameArea = ({
         }}
         onPointerUp={onPointerUp}
       >
+        {!assetsLoaded.image && !assetsLoaded.gif && (
+          <div className="loader">
+            <div className="spinner" />
+          </div>
+        )}
         {!gameStart && (
           <div className="game_image_section">
-            <img src={imageUrl} alt={gameName + 'game paused'} />
+            <img
+              src={imageUrl}
+              alt={gameName + 'game paused'}
+              onLoad={() => setAssetsLoaded((s) => ({ ...s, image: true }))}
+            />
           </div>
         )}
         {gameStart && (
           <div className="game_gif_section">
-            <img src={gifUrl} alt={gameName + ' game started'} />
+            <img
+              src={gifUrl}
+              alt={gameName + ' game started'}
+              onLoad={() => setAssetsLoaded((s) => ({ ...s, gif: true }))}
+            />
           </div>
         )}
       </div>
