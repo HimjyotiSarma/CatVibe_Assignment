@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { gameInfos } from '../assets/games'
 import type { DanceCatGameType } from '../Types'
 import '../styles/GamerArea.style.css'
@@ -27,9 +27,9 @@ const GameArea = ({
   const gifUrl = currentGameInfo?.getGifUrl()
   const gameName = currentGameInfo?.getGameName()
 
-  useEffect(() => {
-    setAssetsLoaded({ image: false, gif: false })
-  }, [currentGameInfo])
+  // useEffect(() => {
+  //   setAssetsLoaded({ image: false, gif: false })
+  // }, [currentGameInfo])
 
   // const [gameStart, setGameStart] = useState(false)
   const allGamesNames = gameInfos.map((game) => game.name)
@@ -106,12 +106,11 @@ const GameArea = ({
         }}
         onPointerUp={onPointerUp}
       >
-        {(!gameStart && !assetsLoaded.image) ||
-          (gameStart && !assetsLoaded.gif && (
-            <div className="loader">
-              <div className="spinner" />
-            </div>
-          ))}
+        {!assetsLoaded.image && !assetsLoaded.gif && (
+          <div className="loader">
+            <div className="spinner" />
+          </div>
+        )}
         {!gameStart && (
           <div className="game_image_section">
             <img
