@@ -1,0 +1,129 @@
+/* GamerArea.style.css */
+
+.game_section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: calc(100dvh - var(--header-height));
+  padding: var(--gap);
+  position: relative;
+  background-color: var(--app-bg);
+}
+
+.game_top_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--gap);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
+}
+
+.selectGame {
+  background: none;
+  border: 2px solid currentColor;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+.selectGame:hover {
+  background-color: rgb(22, 106, 3);
+  color: white;
+}
+
+.bestScoreArea {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+.bestScoreArea span {
+  font-weight: 700;
+  margin-left: 0.3rem;
+}
+
+.game_menu {
+  position: absolute;
+  top: calc(var(--header-height) + var(--gap));
+  left: var(--gap);
+  border: 1px solid currentColor;
+  background-color: rgba(51, 170, 51, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  z-index: 10;
+  overflow: hidden;
+  text-transform: capitalize;
+}
+
+.game_menu_item {
+  display: block;
+  width: 100%;
+  border: none;
+  padding: 1rem 2rem;
+  text-align: left;
+  font-size: 1.2rem;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.game_menu_item:hover {
+  background-color: rgb(22, 106, 3);
+  color: white;
+}
+
+/* Fixed aspect ratio bottom area */
+.game_bottom_section {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  /* background-color: #000; */
+}
+
+/* Layered image & gif */
+.game_image_section,
+.game_gif_section {
+  /* position: absolute;
+  top: 0;
+  left: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game_image_section img,
+.game_gif_section img {
+  /* width: 100%;
+  height: 100%; */
+  width: 100%;
+  max-width: 600px;
+  max-height: 600px;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.game_score_section {
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #4200f7;
+}
