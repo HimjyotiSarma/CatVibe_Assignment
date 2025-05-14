@@ -106,14 +106,16 @@ const GameArea = ({
         }}
         onPointerUp={onPointerUp}
       >
-        {!assetsLoaded.image && !assetsLoaded.gif && (
-          <div className="loader">
-            <div className="spinner" />
-          </div>
-        )}
+        {(!gameStart && !assetsLoaded.image) ||
+          (gameStart && !assetsLoaded.gif && (
+            <div className="loader">
+              <div className="spinner" />
+            </div>
+          ))}
         {!gameStart && (
           <div className="game_image_section">
             <img
+              key={`img-${gameName}`}
               src={imageUrl}
               alt={gameName + 'game paused'}
               onLoad={() => setAssetsLoaded((s) => ({ ...s, image: true }))}
@@ -123,6 +125,7 @@ const GameArea = ({
         {gameStart && (
           <div className="game_gif_section">
             <img
+              key={`gif-${gameName}`}
               src={gifUrl}
               alt={gameName + ' game started'}
               onLoad={() => setAssetsLoaded((s) => ({ ...s, gif: true }))}
